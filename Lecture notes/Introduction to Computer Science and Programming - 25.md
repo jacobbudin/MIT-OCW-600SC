@@ -1,0 +1,15 @@
+# Introduction to Computer Science and Programming
+## Lecture 25
+
+### Queueing network simulations
+Queues exist throughout life (e.g., supermarket lines, e-mail sending). We have queues because of they make economic sense; when resources are limited, jobs are lined up for service. Organizations want to maximize resource utilization; aim for a balance between customer service and resource utilization.
+
+All queues are modeled the same way: there are jobs that enter a queue. Jobs leave the queue one at a time to be processed by the server.
+
+Different components: 1) **arrival process** (how do they appear? singly or in groups [*batch process*]?). 2) **distribution of arrivals in time** (evenly spaced, random, time of day) called an *inter-arrival time distribution*. The *Poisson process* is when items arrive at a random interval but are typically exponentially distributed (memory less, described by a single argument: arrival rate). 3) **Service mechanism**: how long will it take to provide service (service time distribution), takes into account: speed of server, the size of jobs ahead of you, the number of servers, and the number of queues (does each server have its own queue? or a single queue for multiple servers? a single queue is better, but takes up more space).  Do we allow preemption? Preemption allows a server can stop a job to accept an "emergency" job. 4) **Queue characteristics**: What policy does the queue use? FIFO (first in, first out), LIFO (last in, first out), SRPT (shortest remaining processing time, take whichever job you can complete fastest). SRPT is often used in practice; fewer in queue when you accept the ones that can be done quickly, thereby reducing congestion; increases expected service time.
+
+Questions to be answered: Average waiting time? Is waiting time bounded? Average queue length? Is the queue length bounded? Server utilization (amount of time fully occupied)? In reality: Most queueing networks are too complex to understand analytically.
+
+Example: MIT shuttle bus (constraints: predefined loop, maximum passenger capacity). The `random` module has helpful methods like `random.expovariate` for simulating arrival time, for instance. Common `Queue` class with multiple classes that inherit to simulate various policies (`depart` method). Conclusion: Supermarkets would have the happiest customers if they implemented SRPT, but it's "unfair" (*fairness of a queueing discipline*), allowing *starvation* (shorter jobs keep entering queue, larger jobs wait forever).
+
+Multiple parameters in single bus simulation: number of stops, loop length, mean arrival, mean work, and how long to run (simulation time). Many assumptions made in the other classes. Every simulation is imperfect; trying to get an understanding of relative impact of design decisions. To note: loading times are usually significant on public transport.
